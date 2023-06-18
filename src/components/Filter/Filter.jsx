@@ -1,23 +1,22 @@
-import { Form, Label } from 'components/Form/ContactForm.styled';
-import { Input } from './Filter.styled';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectFilter } from 'redux/selectors';
-import { setFilter } from 'redux/filterSlice';
+import { Text } from 'components/ContactList/ContactList.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from 'redux/contacts/filterSlice';
+import { selectFilter } from 'redux/contacts/selectors';
+import { Input, Label } from './Filter.styled';
 
 export const Filter = () => {
-  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
+  const filter = useSelector(selectFilter);
 
-  const onFilter = e => {
-    dispatch(setFilter(e.target.value.trim()));
+  const handleFilter = e => {
+    const filterText = e.target.value.trim();
+    dispatch(setFilter(filterText));
   };
 
   return (
-    <Form>
-      <Label>
-        Find contacts by name
-        <Input value={filter} type="text" onChange={onFilter} />
-      </Label>
-    </Form>
+    <Label>
+      <Text>Find contacts by name</Text>
+      <Input type="text" value={filter} onChange={handleFilter} />
+    </Label>
   );
 };
